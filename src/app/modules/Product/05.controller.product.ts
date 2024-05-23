@@ -4,7 +4,7 @@ import { ProductService } from './06.service.product';
 import { productModel } from './03.model.product';
 
 const createProduct = async (req: Request, res: Response) => {
-    const { product: productData } = req.body;
+    const productData = req.body;
 
     try {
         // zod validation
