@@ -9,4 +9,8 @@ route.post('/products', ProductController.createProduct);
 // getting all products in one place
 route.get('/products', ProductController.getAllProduct);
 
+// getting individual product details
+route.get('/products/:productId', ProductController.getSingleProduct)
+
+
 export const ProductRoute = route;
