@@ -62,9 +62,15 @@ const updateProductQuantityAfterPurchase = async (productId: string, quantity: n
     return product
 }
 
+const deleteProductFromDB = async (productId: string) => {
+    const result = await productModel.findByIdAndDelete(productId);
+    return result
+}
+
 export const ProductService = {
     storeProductToDB,
     getAllDataFromDB,
     getSingleProductFromDB,
-    updateProductQuantityAfterPurchase
+    updateProductQuantityAfterPurchase,
+    deleteProductFromDB
 };
