@@ -6,7 +6,13 @@ const storeOrderInDB = async (order: Order) => {
     return result;
 }
 
-const getAllOrderFromDB = async () => {
+const getAllOrderFromDB = async (email: string) => {
+
+    if (email) {
+        const result = await orderModel.find({ email: email }, { email: 1, productId: 1, price: 1, quantity: 1 });
+        return result;
+    }
+
     const result = await orderModel.find({}, { email: 1, productId: 1, price: 1, quantity: 1 });
     return result;
 }
