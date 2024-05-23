@@ -46,7 +46,7 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
     try {
 
-        const productId = req.params.productId;
+        const { productId } = req.params;
         const result = await ProductService.getSingleProductFromDB(productId);
 
 
@@ -66,8 +66,29 @@ const getSingleProduct = async (req: Request, res: Response) => {
 
 }
 
+const updateProductQuantity = async (req: Request, res: Response) => {
+    try {
+        const { productId } = req.params;
+        const result = await ProductService.updateProductQuantityAfterPurchase(productId, 1);
+
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully",
+            data: result,
+        })
+    } catch (error: any) {
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error: error
+        })
+    }
+
+}
+
 export const ProductController = {
     createProduct,
     getAllProduct,
-    getSingleProduct
+    getSingleProduct,
+    updateProductQuantity
 };

@@ -53,8 +53,18 @@ const getSingleProductFromDB = async (productId: string) => {
     return filteredProduct(product);
 }
 
+const updateProductQuantityAfterPurchase = async (productId: string, quantity: number) => {
+    const product = await productModel.findByIdAndUpdate(
+        productId,
+        { $inc: { 'inventory.quantity': -quantity } },
+        { new: true }
+    );
+    return product
+}
+
 export const ProductService = {
     storeProductToDB,
     getAllDataFromDB,
-    getSingleProductFromDB
+    getSingleProductFromDB,
+    updateProductQuantityAfterPurchase
 };

@@ -13,4 +13,7 @@ route.get('/products', ProductController.getAllProduct);
 route.get('/products/:productId', ProductController.getSingleProduct)
 
 
+// updating a product based on purchase
+route.put('/products/:productId', ProductController.updateProductQuantity)
+
 export const ProductRoute = route;
