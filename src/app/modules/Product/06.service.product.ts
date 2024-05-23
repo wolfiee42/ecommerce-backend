@@ -7,13 +7,50 @@ const storeProductToDB = async (productData: Product) => {
 };
 
 const getAllDataFromDB = async () => {
-    const result = await productModel.find();
+    const allProducts = await productModel.find();
+
+    const result = allProducts.map((product) => ({
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        category: product.category,
+        tags: product.tags,
+        variants: product.variants.map((variants) => ({
+            type: variants.type,
+            value: variants.value,
+        })),
+        inventory: {
+            quantity: product.inventory.quantity,
+            inStock: product.inventory.inStock,
+        }
+
+    }))
     return result;
+
 };
 
 const getSingleProductFromDB = async (productId: string) => {
-    const result = await productModel.findById(productId);
-    return result
+    const product = await productModel.findById(productId) as Product;
+
+    const filteredProduct = (product: Product) => {
+        return {
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            category: product.category,
+            tags: product.tags,
+            variants: product.variants.map((varient) => ({
+                type: varient.type,
+                value: varient.value,
+            })),
+            inventory: {
+                quantity: product.inventory.quantity,
+                inStock: product.inventory.inStock,
+            }
+        }
+    }
+
+    return filteredProduct(product);
 }
 
 export const ProductService = {
