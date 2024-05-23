@@ -6,7 +6,32 @@ const storeProductToDB = async (productData: Product) => {
     return result;
 };
 
-const getAllDataFromDB = async () => {
+const getAllDataFromDB = async (searchTerm: any) => {
+
+    if (searchTerm) {
+        const allProducts = await productModel.find(
+            { $text: { $search: searchTerm } }
+        );
+        const result = allProducts.map((product) => ({
+            name: product.name,
+            description: product.description,
+            price: product.price,
+            category: product.category,
+            tags: product.tags,
+            variants: product.variants.map((variants) => ({
+                type: variants.type,
+                value: variants.value,
+            })),
+            inventory: {
+                quantity: product.inventory.quantity,
+                inStock: product.inventory.inStock,
+            }
+
+        }))
+        return result;
+
+    }
+
     const allProducts = await productModel.find();
 
     const result = allProducts.map((product) => ({
