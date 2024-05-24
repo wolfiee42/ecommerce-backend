@@ -23,8 +23,8 @@ const getAllDataFromDB = async (searchTerm: any) => {
                 value: variants.value,
             })),
             inventory: {
-                quantity: product.inventory.quantity,
-                inStock: product.inventory.inStock,
+                quantity: product.inventory?.quantity,
+                inStock: product.inventory?.inStock,
             }
 
         }))
@@ -45,8 +45,8 @@ const getAllDataFromDB = async (searchTerm: any) => {
             value: variants.value,
         })),
         inventory: {
-            quantity: product.inventory.quantity,
-            inStock: product.inventory.inStock,
+            quantity: product.inventory?.quantity,
+            inStock: product.inventory?.inStock,
         }
 
     }))

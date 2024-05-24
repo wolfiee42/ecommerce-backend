@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { productValidation } from './02.zod.product';
 import { ProductService } from './06.service.product';
-import { productModel } from './03.model.product';
 
 const createProduct = async (req: Request, res: Response) => {
     const productData = req.body;
